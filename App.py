@@ -38,7 +38,7 @@ try:
     c1, c2 = st.columns(2)
     
     # Gráfico 1: Evolução Mensal
-    df_temp = df_fin.resample('M', on='Data').sum().reset_index()
+    df_temp = df_fin.resample('ME', on='Data').sum().reset_index()
     fig_evol = px.line(df_temp, x='Data', y='Valor', title="Evolução do Fluxo de Caixa")
     c1.plotly_chart(fig_evol, use_container_width=True)
 
