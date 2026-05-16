@@ -43,9 +43,17 @@ try:
     c1.plotly_chart(fig_evol, use_container_width=True)
 
     # Gráfico 2: Composição de Gastos (exemplo por conta)
-    fig_pizza = px.pie(df_fin[df_fin['Valor'] < 0], values=abs(df_fin['Valor']), names='ID_Conta', 
-                       title="Distribuição de Despesas por Conta")
-    c2.plotly_chart(fig_pizza, use_container_width=True)
+    # TRECHO NOVO (Cole este no lugar):
+# Criamos um filtro isolado apenas para as despesas
+df_despesas = df_fin[df_fin['Valor'] < 0].copy()
+
+# Garantimos que o valor fique positivo para exibição correta na pizza
+df_despesas['Valor_Absoluto'] = df_despesas['Valor'].abs()
+
+# Criamos o gráfico usando o novo dataframe filtrado
+fig_pizza = px.pie(df_despesas, values='Valor_Absoluto', names='ID_Conta', 
+                   title="Distribuição de Despesas por Conta")
+c2.plotly_chart(fig_pizza, use_container_width=True)
 
 except Exception as e:
     st.error(f"Erro ao carregar arquivos: {e}")
