@@ -11,8 +11,10 @@ st.markdown("---")
 # Carregamento dos dados (Simulação baseada nos seus arquivos)
 @st.cache_data
 def load_data():
-    df_fin = pd.read_csv("modelo_fluxo_caixa_powerbi.xlsx - F_Financeiro.csv")
-    df_plano = pd.read_csv("modelo_fluxo_caixa_powerbi.xlsx - D_PlanoContas.csv")
+    # Agora lendo direto do arquivo Excel e especificando as abas
+    df_fin = pd.read_excel("modelo_fluxo_caixa_powerbi.xlsx", sheet_name="F_Financeiro")
+    df_plano = pd.read_excel("modelo_fluxo_caixa_powerbi.xlsx", sheet_name="D_PlanoContas")
+    
     # Convertendo datas
     df_fin['Data'] = pd.to_datetime(df_fin.get('Data', pd.Timestamp.now()))
     return df_fin, df_plano
